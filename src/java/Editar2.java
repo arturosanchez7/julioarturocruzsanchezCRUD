@@ -30,6 +30,30 @@ public class Editar2 extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            
+            int id;
+            String  nom, pass, email, pais;
+            id = Integer.parseInt(request.getParameter("id2"));
+            nom = request.getParameter("nombre2");
+            pass = request.getParameter("password2");
+            email = request.getParameter("email2");
+            pais = request.getParameter("pais2");
+            
+            Alumno a = new Alumno();
+            
+            a.setId(id);
+            a.setNombre(nom);
+            a.setPassword(pass);
+            a.setEmail(email);
+            a.setPais(pais);
+            
+            
+            int estatus = acciones_alumno.Actualizar_alumno(a);
+            
+            if(estatus > 0 ){
+                response.sendRedirect("Consultar_Lista");
+            }else{
+            
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -37,10 +61,12 @@ public class Editar2 extends HttpServlet {
             out.println("<title>Servlet Editar2</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Editar2 at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Error al momento de optener los datos</h1>"
+                    + "<a href='index.html'>Regresar al menu principal</a>");
             out.println("</body>");
             out.println("</html>");
-        }
+            }
+            }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
